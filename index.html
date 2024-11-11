@@ -3,141 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JN Network - Minecraft Server</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>JN Network | Main Website</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+
         body {
-            font-family: 'Roboto Mono', monospace;
-            background: linear-gradient(to bottom right, #141e30, #243b55);
+            background: radial-gradient(circle, #0a0a0a, #000);
             color: #eee;
+            font-family: 'Rajdhani', sans-serif;
             margin: 0;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            transform: translateZ(20px);
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 60px;
+            overflow: hidden;
+            transition: height 0.3s ease-in-out, background-color 0.3s;
+        }
+
+        nav:hover {
+            height: 200px;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: flex-start;
+        }
+
+        .logo {
+            color: #64b5f6;
+            font-size: 1.5em;
+            text-shadow: 0 0 5px #0d47a1;
+            margin-right: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        nav:hover ul {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        nav li {
+            margin: 10px 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #64b5f6;
+            font-weight: bold;
+            text-shadow: 0 0 5px #0d47a1;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        nav a:hover {
+            color: #90caf9;
+            transform: translateY(-3px);
         }
 
         .container {
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px); /* Add a blur effect */
-            border-radius: 10px;
-            padding: 40px;
-            max-width: 900px;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        }
-
-        h1, h2 {
-            color: #80c0ff;
-            text-shadow: 0 0 5px #007bff; /* Add a glow effect */
-        }
-
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-
-        .game-mode {
-            margin: 20px 0;
+            width: 90%;
+            max-width: 1200px;
+            margin: 100px auto 20px;
             padding: 20px;
-            border-radius: 8px;
-            background-color: rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Add hover effect */
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            transform: translateZ(10px);
         }
-        .game-mode:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 25px rgba(0,0,0,0.5);
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+            transform: translateZ(30px);
+        }
+
+        .header-section h1 {
+            font-size: 4em;
+            text-shadow: 0 0 10px #0d47a1;
+            letter-spacing: 2px;
+        }
+
+        .game-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .game-card {
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .game-card:hover {
+            transform: scale(1.08) translateZ(10px);
+            box-shadow: 0 0 20px rgba(81, 157, 255, 0.5);
+        }
+
+        .ip-address {
+            text-align: center;
+            font-weight: bold;
+            color: #ffb74d;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .ip-address span {
+            margin: 10px;
+            padding: 8px 12px;
+            border: 1px solid #ffb74d;
+            border-radius: 5px;
+        }
+
+        p {
+            font-size: 1.2em;
         }
 
         ul {
-            list-style: none;
+            list-style-type: none; 
             padding: 0;
-            text-align: left; /* Align list items to the left */
-            margin-left: 20px;
         }
 
         li {
-            margin-bottom: 8px;
+            margin-bottom: 5px; 
         }
 
-        .ip-addresses {
-            margin-top: 30px;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: rgba(0, 0, 0, 0.3);
-        }
-
-        code {
-            background-color: #222;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 1.1em;
-        }
-
-        .maintenance {
-            color: #ffa500; /* Orange color for maintenance */
-        }
-
-        .upcoming {
-            color: #90ee90; /* Light green for upcoming */
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>🌌 — Welcome to JN Network — 🌌</h1>
-        <p><em>Embark on an unforgettable Minecraft adventure!</em></p>
-
-        <div class="game-mode">
-            <h2>🌿 Survival</h2>
-            <ul>
-                <li>➤ Custom Items & Gear</li>
-                <li>➤ Skill Upgrades & Unique Abilities</li>
-                <li>➤ Dungeons, Overworld Bosses & Spawners</li>
-            </ul>
-        </div>
-         <div class="game-mode">
-            <h2>⚔️ Skywars</h2>
-            <ul>
-                <li>➤ Soul Wells – Unlock rewards as you play</li>
-                <li>➤ Kits & Perks – Customize your playstyle</li>
-                <li>➤ Game Modes: Insane, Mega, and Team</li>
-            </ul>
-        </div>
-        <div class="game-mode">
-            <h2>🏃 Parkour</h2>
-            <ul>
-                <li>➤ Escape Mode – Find your way out!</li>
-                <li>➤ Dropper – Freefall through obstacles</li>
-                <li>➤ Stages – Progress through increasingly tough levels</li>
-            </ul>
+        <div class="header-section">
+            <h1>🌌 JN Network 🌌</h1>
+            <p>Embark on an unforgettable Minecraft adventure!</p>
         </div>
 
-        <div class="game-mode">
-            <h2 class="maintenance">🏹 Practice</h2>
-            <p class="maintenance"><em>Currently in Maintenance, back soon!</em></p>
+        <div class="game-section">
+            <div class="game-card">
+                <h2>🌿 Survival</h2>
+                <ul>
+                    <li>➤ Custom Items & Gear</li>
+                    <li>➤ Skill Upgrades & Unique Abilities</li>
+                    <li>➤ Dungeons, Overworld Bosses & Spawners</li>
+                </ul>
+            </div>
+            <div class="game-card">
+                <h2>⚔️ Skywars</h2>
+                <ul>
+                  <li>➤ Soul Wells – Unlock rewards as you play</li>
+                  <li>➤ Kits & Perks – Customize your playstyle</li>
+                  <li>➤ Game Modes: Insane, Mega, and Team</li>
+                </ul>
+            </div>
+            <div class="game-card">
+                <h2>🏃 Parkour</h2>
+                <ul>
+                    <li>➤ Escape Mode – Find your way out!</li>
+                    <li>➤ Dropper – Freefall through obstacles</li>
+                    <li>➤ Stages – Progress through increasingly tough levels</li>
+                </ul>
+            </div>
+             <div class="game-card">
+                <h2>🏹 Practice</h2>
+                <p>Currently in Maintenance, back soon!</p>
+            </div>
+            <div class="game-card">
+                <h2>💀 Lifesteal</h2>
+                <p>An upcoming twist on survival mode!</p>
+            </div>
         </div>
 
-        <div class="game-mode">
-            <h2 class="upcoming">💀 Lifesteal</h2>
-            <p class="upcoming"><em>An upcoming twist on survival mode!</em></p>
+        <div class="ip-address">
+            <span>Java: `join.junarmc.xyz`</span>
+            <span>Eaglercraft: `wss://play.junarmc.xyz`</span>
         </div>
 
-
-
-        <div class="ip-addresses">
-            <h2>✨ IP Addresses</h2>
-            <strong>Java:</strong> <code>join.junarmc.xyz</code><br>
-            <strong>Eaglercraft:</strong> <code>wss://play.junarmc.xyz</code><br>
-<br>
-            <strong>Discord:</strong> <a href="https://dsc.gg/joinjnmc">Join Our Discord</a>
-
-
-        </div>
     </div>
 
 </body>
